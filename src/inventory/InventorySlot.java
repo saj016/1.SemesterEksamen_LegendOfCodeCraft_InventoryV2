@@ -5,7 +5,7 @@ import items.HealthPotion;
 import items.Item;
 
 public class InventorySlot {
-    private Item item;
+    /*private Item item;
     private int quantity;
 
     public InventorySlot() {
@@ -56,5 +56,5 @@ public class InventorySlot {
         } else {
             return true;
         }
-    }
+    }*/
 }

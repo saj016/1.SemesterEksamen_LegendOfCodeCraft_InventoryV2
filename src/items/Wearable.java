@@ -2,35 +2,38 @@ package items;
 
 import enums.*;
 
-public class ChestPlate extends Wearable {
+public class Wearable extends Item {
+    BodyPart bodyPart;
+    WearableMaterial material;
+    int defence;
+    Rarity rarity;
 
-    public ChestPlate(Rarity rarity, WearableMaterial material) {
-        super("Chest Plate", rarity, material, BodyPart.CHEST, 10, 1.8);
-        //name is always Chest Plate, baseDefence always 10 and baseWeight always 1.8
-    }
-
-    /*private final BodyPart bodyPart = BodyPart.CHEST;
-    private WearableMaterial material;
-    private int defence = 10;
-    private final double baseWeight = 1.8;
-
-    public ChestPlate(String name, Rarity rarity, WearableMaterial material) {
-        super(name, rarity);
+    public Wearable(String name, Rarity rarity, WearableMaterial material, BodyPart bodyPart, int baseDefence, double baseWeight) {
+        super();
+        this.rarity = rarity;
         this.material = material;
-        super.setWeight(calculateWeight());
-        this.defence = calculateDefence();
+        this.bodyPart = bodyPart;
+        this.defence = calculateDefence(baseDefence);
+        super.setWeight(calculateWeight(baseWeight));
+        super.setName(createName(name));
     }
 
-    private int calculateDefence() {
+    public String createName(String name) {
+        String resultName;
+        String materialName = this.material.name();
+        return materialName.charAt(0) + materialName.substring(1).toLowerCase() + " " + name;
+    }
+
+    private int calculateDefence(int baseDefence) {
         int addedDefence = 0;
         //Calculate added defence from rarity
-        if (super.getRarity() == Rarity.COMMON) {
+        if (this.rarity == Rarity.COMMON) {
             addedDefence += 0;
-        } else if (super.getRarity() == Rarity.UNCOMMON) {
+        } else if (this.rarity == Rarity.UNCOMMON) {
             addedDefence += 1;
-        } else if (super.getRarity() == Rarity.RARE) {
+        } else if (this.rarity == Rarity.RARE) {
             addedDefence += 2;
-        } else if (super.getRarity() == Rarity.LEGENDARY) {
+        } else if (this.rarity == Rarity.LEGENDARY) {
             addedDefence += 3;
         } else {
             addedDefence += 0;
@@ -44,7 +47,7 @@ public class ChestPlate extends Wearable {
             addedDefence += 1;
         } else if (this.material == WearableMaterial.STEEL) {
             addedDefence += 2;
-        } else if (this.material == WearableMaterial.CHAIN_MAIL) {
+        } else if (this.material == WearableMaterial.CHAINMAIL) {
             addedDefence += 3;
         } else {
             addedDefence += 0;
@@ -54,9 +57,7 @@ public class ChestPlate extends Wearable {
         return this.defence + addedDefence;
     }
 
-    //TODO
-    @Override
-    protected double calculateWeight() {
+    protected double calculateWeight(double baseWeight) {
         double result;
         if (this.material == WearableMaterial.LEATHER) {
             result = baseWeight + 0;
@@ -64,7 +65,7 @@ public class ChestPlate extends Wearable {
             result = baseWeight + 1;
         } else if (this.material == WearableMaterial.STEEL) {
             result = baseWeight + 2;
-        } else if (this.material == WearableMaterial.CHAIN_MAIL) {
+        } else if (this.material == WearableMaterial.CHAINMAIL) {
             result = baseWeight + 1.7;
         } else {
             result = baseWeight;
@@ -73,7 +74,4 @@ public class ChestPlate extends Wearable {
         return result;
     }
 
-    public boolean isStackable(){
-        return false;
-    }*/
 }

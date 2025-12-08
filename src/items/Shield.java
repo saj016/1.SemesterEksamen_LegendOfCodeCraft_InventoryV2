@@ -4,8 +4,13 @@ import enums.Rarity;
 import enums.WeaponHand;
 import enums.WeaponMaterial;
 
-public class Shield extends Item {
-    private final WeaponHand hand = WeaponHand.OFF_HAND;
+public class Shield extends Weapon {
+
+    public Shield(String name, Rarity rarity, WeaponMaterial material) {
+        super("Shield", rarity, material, WeaponHand.ONE_HAND, 5,10, 5);
+    }
+    //TODO
+    /*private final WeaponHand hand = WeaponHand.OFF_HAND;
     private WeaponMaterial material;
     private int defence = 10;
     private int damage = 5;
@@ -102,5 +107,5 @@ public class Shield extends Item {
     }
     public boolean isStackable(){
         return false;
-    }
+    }*/
 }

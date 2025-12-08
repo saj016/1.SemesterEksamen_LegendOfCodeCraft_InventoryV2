@@ -2,10 +2,16 @@ package items;
 
 import enums.*;
 
-public class Gloves extends Item {
-    private final BodyPart bodyPart = BodyPart.HANDS;
+public class Gloves extends Wearable {
+
+    public Gloves(Rarity rarity, WearableMaterial material) {
+        super("Gloves", rarity, material, BodyPart.CHEST, 3, 0.5);
+        //name is always Gloves, baseDefence always 3 and baseWeight always 0.5
+    }
+
+    /*private final BodyPart bodyPart = BodyPart.HANDS;
     private WearableMaterial material;
-    private int defence = 10;
+    private int defence = 3;
     private final double baseWeight = 0.5;
 
 
@@ -71,5 +77,5 @@ public class Gloves extends Item {
     @Override
     protected boolean isStackable(){
         return false;
-    }
+    }*/
 }

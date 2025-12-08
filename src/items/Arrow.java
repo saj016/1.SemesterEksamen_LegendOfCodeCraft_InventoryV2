@@ -2,8 +2,13 @@ package items;
 import enums.Rarity;
 import enums.WeaponMaterial;
 
-public class Arrow extends Item {
-    private WeaponMaterial material;
+public class Arrow extends Consumable {
+
+    public Arrow() {
+        super();
+    }
+
+    /*private WeaponMaterial material;
     final private int maxStack = 30;
     private int damage = 1;
     final private double baseWeight = 0.1;
@@ -60,5 +65,5 @@ public class Arrow extends Item {
     }
     public boolean isStackable(){
         return true;
-    }
+    }*/
 }

@@ -4,27 +4,37 @@ import enums.Rarity;
 import enums.WeaponHand;
 import enums.WeaponMaterial;
 
-public abstract class Weapon extends Item{
-    private WeaponHand hand;
-    private WeaponMaterial material;
-    private int defence;
-    private int damage;
-    private double baseWeight;
-    private Rarity rarity;
+import java.util.Locale;
 
-    public Weapon(String name, Rarity rarity, WeaponMaterial material, WeaponHand hand){
-        super(name);
+public abstract class Weapon extends Item{
+    private final WeaponHand hand;
+    private final WeaponMaterial material;
+    private final int defence;
+    private final int damage;
+    private final Rarity rarity;
+
+    public Weapon(String name, Rarity rarity, WeaponMaterial material, WeaponHand hand, int baseDamage, int baseDefence, double baseWeight){
+        super();
         this.rarity = rarity;
         this.material = material;
-        this.hand = 
-        super.setWeight(calculateWeight());
+        this.hand = hand;
+        this.damage = calculateDamage(baseDamage);
+        this.defence = calculateDefence(baseDefence);
+        super.setWeight(calculateWeight(baseWeight));
+        super.setName(createName(name));
     }
 
     public Rarity getRarity() {
         return this.rarity;
+    } //Hvad bruger vi denne til? TODO tror bare den skal slettes
+
+    public String createName(String name) {
+        String resultName;
+        String materialName = this.material.name();
+        return materialName.charAt(0) + materialName.substring(1).toLowerCase() + " " + name;
     }
 
-    private int calculateDamage() {
+    private int calculateDamage(int baseDamage) {
         int result;
         int rarityScore;
         //Sets the score of rarity
@@ -41,20 +51,20 @@ public abstract class Weapon extends Item{
         }
         //calculates damage by combining the scores of rarity and material and base damage
         if (this.material == WeaponMaterial.WOOD) {
-            result = this.damage + rarityScore; //WOOD gives 0 extra damage
+            result = baseDamage + rarityScore; //WOOD gives 0 extra damage
         } else if (this.material == WeaponMaterial.STONE) {
-            result = this.damage + rarityScore + 1;
+            result = baseDamage + rarityScore + 1;
         } else if (this.material == WeaponMaterial.IRON) {
-            result = this.damage + rarityScore + 2;
+            result = baseDamage + rarityScore + 2;
         } else if (this.material == WeaponMaterial.STEEL) {
-            result = this.damage + rarityScore + 3;
+            result = baseDamage + rarityScore + 3;
         } else {
-            result = this.damage + rarityScore; //TODO tjek else
+            result = baseDamage + rarityScore; //TODO tjek else
         }
         return result;
     }
 
-    private int calculateDefence() {
+    private int calculateDefence(int baseDefence) {
         int addedDefence = 0;
         //Calculate added defence from rarity
         if (this.getRarity() == Rarity.COMMON) {
@@ -84,7 +94,24 @@ public abstract class Weapon extends Item{
             // TODO - tjek "else"
         }
 
-        return this.defence + addedDefence;
+        return baseDefence + addedDefence;
+    }
+
+    public double calculateWeight(double baseWeight) {
+        double result;
+        if (this.material == WeaponMaterial.WOOD) {
+            result = baseWeight + 0;
+        } else if (this.material == WeaponMaterial.STONE) {
+            result = baseWeight + 1;
+        } else if (this.material == WeaponMaterial.IRON) {
+            result = baseWeight + 2;
+        } else if (this.material == WeaponMaterial.STEEL) {
+            result = baseWeight + 3;
+        } else {
+            result = baseWeight;
+            // TODO - tjek "else"
+        }
+        return result;
     }
 }
 
