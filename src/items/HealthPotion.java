@@ -1,13 +1,12 @@
 package items;
 
-import enums.Rarity;
-import enums.WeaponHand;
-import enums.WeaponMaterial;
-
 public class HealthPotion extends Consumable {
+    //static attributes: are run as soon as the class is created as it's the same for all instances of this class
+    private static final String name = "Health Potion";
+    private static final double weight = 0.2;
+    private static final int maxStack = 5;
 
     public HealthPotion() {
-        super("Health Potion",5, 0.2);
-        //name is always Health Potion, maxStack is always 5, weight is always 0.2
+        super(name, maxStack, weight);
     }
 }

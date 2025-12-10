@@ -1,8 +1,5 @@
 package items;
 
-import enums.Rarity;
-import enums.WeaponMaterial;
-
 public class Consumable extends Item {
     private final int maxStack;
     //private int damage;
@@ -11,6 +8,8 @@ public class Consumable extends Item {
     public Consumable(String name, int maxStack, double weight) {
         super();
         this.maxStack = maxStack;
+        super.setName(name);
+        super.setWeight(weight);
     } //Used for HealthPotion
 
     //Overloaded

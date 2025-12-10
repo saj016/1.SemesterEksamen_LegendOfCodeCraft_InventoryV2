@@ -7,10 +7,11 @@ import enums.WeaponMaterial;
 public abstract class Weapon extends Item{
     private final WeaponHand hand;
     private final WeaponMaterial material;
-    private final int defence; //TODO spørg Mor eller Far -- skal vi lave gettere og settere på de atributter som spillet måske vil bruge udenfor vores inventory
+    private final int defence; //TODO spørg Mor eller Far -- skal vi lave gettere og settere på de attributter som spillet måske vil bruge udenfor vores inventory
     private final int damage;
     private final Rarity rarity;
 
+    //Used for Bow
     public Weapon(String name, Rarity rarity, WeaponMaterial material, WeaponHand hand, int baseDamage, int baseDefence, double baseWeight){
         super();
         this.rarity = rarity;
@@ -22,10 +23,6 @@ public abstract class Weapon extends Item{
         super.setName(createName(name));
     }
 
-    public Rarity getRarity() {
-        return this.rarity;
-    } //Hvad bruger vi denne til? TODO tror bare den skal slettes
-
     public String createName(String name) {
         String materialName = this.material.name();
         return materialName.charAt(0) + materialName.substring(1).toLowerCase() + " " + name;
@@ -35,13 +32,13 @@ public abstract class Weapon extends Item{
         int result;
         int rarityScore;
         //Sets the score of rarity
-        if (this.getRarity() == Rarity.COMMON) {
+        if (this.rarity == Rarity.COMMON) {
             rarityScore = 0;
-        } else if (this.getRarity() == Rarity.UNCOMMON) {
+        } else if (this.rarity == Rarity.UNCOMMON) {
             rarityScore = 1;
-        } else if (this.getRarity() == Rarity.RARE) {
+        } else if (this.rarity == Rarity.RARE) {
             rarityScore = 2;
-        } else if (this.getRarity() == Rarity.LEGENDARY) {
+        } else if (this.rarity == Rarity.LEGENDARY) {
             rarityScore = 3;
         } else {
             rarityScore = 0; //TODO tjek else
@@ -64,13 +61,13 @@ public abstract class Weapon extends Item{
     private int calculateDefence(int baseDefence) {
         int addedDefence = 0;
         //Calculate added defence from rarity
-        if (this.getRarity() == Rarity.COMMON) {
+        if (this.rarity == Rarity.COMMON) {
             addedDefence += 0;
-        } else if (this.getRarity() == Rarity.UNCOMMON) {
+        } else if (this.rarity == Rarity.UNCOMMON) {
             addedDefence += 1;
-        } else if (this.getRarity() == Rarity.RARE) {
+        } else if (this.rarity == Rarity.RARE) {
             addedDefence += 2;
-        } else if (this.getRarity() == Rarity.LEGENDARY) {
+        } else if (this.rarity == Rarity.LEGENDARY) {
             addedDefence += 3;
         } else {
             addedDefence += 0;

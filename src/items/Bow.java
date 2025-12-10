@@ -3,12 +3,16 @@ package items;
 import enums.Rarity;
 import enums.WeaponHand;
 import enums.WeaponMaterial;
-import enums.WearableMaterial;
 
 public class Bow extends Weapon {
+    //static attributes: are run as soon as the class is created as it's the same for all instances of this class
+    private static final String name = "Bow";
+    private static final WeaponHand hand = WeaponHand.TWO_HAND;
+    private static final int baseDamage = 7;
+    private static final int baseDefence = 1;
+    private static final double baseWeight = 2.5;
 
     public Bow(Rarity rarity, WeaponMaterial material) {
-        super("Bow", rarity, material, WeaponHand.ONE_HAND, 7,1, 7);
-        //name is always Bow, hand is always ONE_HAND, baseDamage always 7, baseDefence always 1 and baseWeight always 7
+        super(name, rarity, material, hand, baseDamage, baseDefence, baseWeight);
     }
 }

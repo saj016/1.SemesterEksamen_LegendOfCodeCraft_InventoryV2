@@ -1,17 +1,17 @@
 package items;
-import interfaces.ConsumableWithMaterial;
-import enums.ConsumableMaterial;
 
-public class Arrow extends Consumable implements ConsumableWithMaterial {
+import enums.ConsumableMaterial;
+import interfaces.ConsumableWithMaterial;
+
+public class Pellet extends Consumable implements ConsumableWithMaterial {
     //static attributes: are run as soon as the class is created as it's the same for all instances of this class
-    private static final String name = "Arrow";
+    private static final String name = "Pellet";
     private final ConsumableMaterial material;
     private int damage = 1; //base damage is 1, more damage is added based on material in calculateDamage() method
-    private static final double baseWeight = 0.1;
-    private static final int maxStack = 30;
+    private static final double baseWeight = 0.05;
+    private static final int maxStack = 50;
 
-
-    public Arrow(ConsumableMaterial material) {
+    public Pellet(ConsumableMaterial material) {
         super(maxStack);
         this.material = material;
         super.setWeight(calculateWeight(baseWeight));

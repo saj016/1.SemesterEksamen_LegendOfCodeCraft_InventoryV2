@@ -5,9 +5,14 @@ import enums.WeaponHand;
 import enums.WeaponMaterial;
 
 public class Sword extends Weapon {
+    //static attributes: are run as soon as the class is created as it's the same for all instances of this class
+    private static final String name = "Sword";
+    private static final WeaponHand hand = WeaponHand.ONE_HAND;
+    private static final int baseDamage = 15;
+    private static final int baseDefence = 5;
+    private static final double baseWeight = 3;
 
     public Sword(Rarity rarity, WeaponMaterial material) {
-        super("Sword", rarity, material, WeaponHand.ONE_HAND, 5,15, 3);
-        //name is always Sword, hand is always ONE_HAND, baseDamage always 5, baseDefence always 15 and baseWeight always 3
+        super(name, rarity, material, hand, baseDamage, baseDefence, baseWeight);
     }
 }

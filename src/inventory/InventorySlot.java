@@ -1,5 +1,7 @@
 package inventory;
 
+import enums.WeaponMaterial;
+import interfaces.ConsumableWithMaterial;
 import items.Arrow;
 import items.Consumable;
 import items.HealthPotion;
@@ -8,6 +10,7 @@ import items.Item;
 public class InventorySlot {
     private Item item;
     private int quantity;
+    //TODO - "ikke objektorienteret nok" - skal det ligge som array i stedet for?
 
     public InventorySlot() {
 
@@ -52,19 +55,22 @@ public class InventorySlot {
 
     public boolean canStackWith(Item item) {
         if (item instanceof Consumable && this.item instanceof Consumable) {
-            if (item instanceof HealthPotion && this.item instanceof HealthPotion) {
-                return true;
-            } else if (item instanceof Arrow && this.item instanceof Arrow) {
-                //Downcasting of arrow
-                Arrow itemArrow = (Arrow)item;
-                Arrow thisItemArrow = (Arrow)item;
-                if (itemArrow.getMaterial() == thisItemArrow.getMaterial()) {
-                    return true;
+            if (item.getClass().equals(this.item.getClass())) {
+                if (item instanceof ConsumableWithMaterial) {
+                    //Downcasting to ItemWithMaterial
+                    ConsumableWithMaterial consumableWithMaterial = (ConsumableWithMaterial) item;
+                    ConsumableWithMaterial thisconsumableWithMaterial = (ConsumableWithMaterial) this.item;
+                    //Checks if the material of the objects are the same
+                    if (consumableWithMaterial.getMaterial() == consumableWithMaterial.getMaterial()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 } else {
-                    return false;
+                    return true; //TODO - kig på returnering
                 }
             } else {
-                return false; //TODO - kig på returnering
+                return false;
             }
         } else {
             return false;
@@ -72,27 +78,17 @@ public class InventorySlot {
     }
 
     public boolean isStackFull(){
-        //Downcasting consumables
         if (this.item instanceof Consumable) {
-            if (this.item instanceof Arrow) {
-                Arrow myArrow = (Arrow) this.item;
-                if (myArrow.getMaxStack() == this.quantity) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else if (this.item instanceof HealthPotion) {
-                HealthPotion myHealthPotion = (HealthPotion) this.item;
-                if (myHealthPotion.getMaxStack() == this.quantity) {
-                    return true;
-                } else {
-                    return false;
-                }
+            //Downcasting
+            Consumable myConsumable = (Consumable)this.item;
+            if (myConsumable.getMaxStack() == this.quantity) {
+                return true;
             } else {
-                return true; //TODO - kig på returnering
+                return false;
             }
         } else {
-            return true;
+            return true; //TODO - kig på returnering
+
         }
     }
 

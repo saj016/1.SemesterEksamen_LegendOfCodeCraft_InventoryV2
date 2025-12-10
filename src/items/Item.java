@@ -1,7 +1,5 @@
 package items;
 
-import enums.Rarity;
-
 public abstract class Item {
     private String name;
     private double weight;
