@@ -38,16 +38,6 @@ public class InventoryManager {
        int index = slot - 1;
        inventory.removeItemFromSlot(index);
     }
-    /*
-    Idé: removeItemFromSlot(int slot) [husk at index er slot -1]
-    og hav printSlotOverview delen i main menuen
-
-    removeItem()
-    - print hele inventory (printSlotOverview)
-    - prompt for slot, de vil fjerne fra
-    - fjern 1 fra slot
-    HUSK: fjern vægt fra inventory af det fjernede item
-     */
 
     //TODO searchItem
     /*

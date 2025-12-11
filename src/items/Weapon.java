@@ -95,13 +95,13 @@ public abstract class Weapon extends Item{
     public double calculateWeight(double baseWeight) {
         double result;
         if (this.material == WeaponMaterial.WOOD) {
-            result = baseWeight + 0;
+            result = baseWeight;
         } else if (this.material == WeaponMaterial.STONE) {
-            result = baseWeight + 1;
+            result = baseWeight * 1.1;
         } else if (this.material == WeaponMaterial.IRON) {
-            result = baseWeight + 2;
+            result = baseWeight * 1.2;
         } else if (this.material == WeaponMaterial.STEEL) {
-            result = baseWeight + 3;
+            result = baseWeight + 1.5;
         } else {
             result = baseWeight;
             // TODO - tjek "else"

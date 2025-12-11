@@ -28,8 +28,6 @@ public class Inventory {
         return items;
     }
 
-
-
     public void addItemToEmptySlot(Item item, int index) {
         items[index].addItem(item);
         addWeightToInventory(item);
@@ -56,12 +54,11 @@ public class Inventory {
     }
 
     public void removeItemFromSlot(int index) throws InventorySlotAlreadyEmptyException {
-        if (index > unlockedSlots) {
+        if (index > unlockedSlots || index < 0) {
             throw new ExceedsAvailableSlotsException("Attempting to remove an item from a locked slot");
+            //TODO - skal der være en ekstra exception, som håndterer ugyldige slots (<0 og >192)?
         }
         this.items[index].consume();
-
-        //slot not unlocked exceptiomn
     }
 
     //return index for available slot, else return -1

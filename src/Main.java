@@ -2,6 +2,8 @@ import enums.ConsumableMaterial;
 import enums.Rarity;
 import enums.WeaponMaterial;
 import enums.WearableMaterial;
+import exceptions.ExceedsAvailableSlotsException;
+import exceptions.InventorySlotAlreadyEmptyException;
 import exceptions.InventoryWeightLimitReachedException;
 import exceptions.NoEmptySlotsAvailableException;
 import inventory.Inventory;
@@ -21,13 +23,13 @@ public class Main {
 
 
         //tilføj 3 wood arrows
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 35; i++) {
             inventoryManager.addItem(itemFactory.createWoodArrow());
         }
 
         //TODO - skal der være en metode til at lave en tilfældig inventory, man kan starte med?
         //loop to create an amount of random items and add to inventory
-        for (int i = 0; i < ; 16i++) {
+        for (int i = 0; i < 32; i++) {
             try {
                 inventoryManager.addItem(itemFactory.createRandomItem());
                 //TODO - skal det være
@@ -44,6 +46,14 @@ public class Main {
 
         System.out.println("=== Welcome to the Legend of CodeCraft Inventory! ===");
 
+
+        removeItemFromInventory();
+        System.out.println(inventoryManager.printSlotOverview());
+        removeItemFromInventory();
+        removeItemFromInventory();
+        removeItemFromInventory();
+        System.out.println(inventoryManager.printSlotOverview());
+        removeItemFromInventory();
 
         /*
         Hovedmenu:
@@ -76,7 +86,7 @@ public class Main {
 
     public static void addRandomItemToInventory() {
         try {
-            inventoryManager.addItem(ItemFactory.createRandomItem());
+            inventoryManager.addItem(itemFactory.createRandomItem());
         } catch (InventoryWeightLimitReachedException e){
             System.out.println("Cannot add item as inventory weight limit will be exceeded.");
         } catch (NoEmptySlotsAvailableException e) {
@@ -90,7 +100,13 @@ public class Main {
         String userInput = input.nextLine();
         try {
             int userInputInt = Integer.parseInt(userInput);
-            //TODO - InventoryManager.removeItemFromInventory(userInputInt)
+            try {
+                inventoryManager.removeItemFromSlot(userInputInt);
+            } catch (ExceedsAvailableSlotsException e){
+                System.out.println("You do not have access to the chosen slot");
+            } catch (InventorySlotAlreadyEmptyException e) {
+                System.out.println("The selected slot is already empty - cannot remove object");
+            }
         } catch (NumberFormatException e) {
             System.out.println("A valid number was not entered");
         }
