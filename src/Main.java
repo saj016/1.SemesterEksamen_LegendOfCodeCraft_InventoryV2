@@ -8,8 +8,8 @@ import items.*;
 import java.util.Scanner;
 
 public class Main {
+    static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
 
         InventoryManager inventoryManager = new InventoryManager();
         //InventoryManager creates an inventory and manages only this one inventory
@@ -24,6 +24,31 @@ public class Main {
 
         System.out.println(inventoryManager.printSlotOverview());
 
+        System.out.println("=== Welcome to the Legend of CodeCraft Inventory! ===");
+
+
+        /*
+        Hovedmenu:
+        1: Add random item to inventory
+            inventoryManager.addItem(ItemFactory.createRandomItem());
+        2: Remove item from inventory TODO
+        3: Print inventory overview
+            System.out.println(inventoryManager.printSlotOverview());
+        4: Search for items
+            (itemSearchMenu())
+        5: Sort inventory TODO
+        6: Add inventory slots TODO
+        7: Advanced features TODO
+            herunder:
+            1: Export data
+            2: Reset data / delete data (husk en "er du sikker på..." før sletning)
+            3: Restore data
+         */
+        //Search for items menu
+        itemSearchMenu();
+    }
+
+    public static void itemSearchMenu(){
         //Search for items using parameters
         System.out.println("Which parameter will you use for your search?\n" +
                 "1: Type\n" +
@@ -51,6 +76,7 @@ public class Main {
                         //if 1 send health
                         // if 2 send.... osv
                         //TODO - kald metode til at håndtere søgning efter consumable
+                        System.out.println("Søger efter consumable X");
                     } else {
                         System.out.println("Please only choose numbers 1 through 3");
                     }
@@ -62,10 +88,11 @@ public class Main {
                             "4: Shield");
                     userInput = input.nextLine();
                     userChoice = Integer.parseInt(userInput);
-                    if (userChoice > 0 && userChoice < 4) {
+                    if (userChoice > 0 && userChoice < 5) {
                         //if 1 send Bow
                         // if 2 send.... osv
                         //TODO - kald metode til at håndtere søgning efter Weapon
+                        System.out.println("Søger efter Weapon X");
                     } else {
                         System.out.println("Please only choose numbers 1 through 3");
                     }
@@ -78,10 +105,11 @@ public class Main {
                             "5: Leggings");
                     userInput = input.nextLine();
                     userChoice = Integer.parseInt(userInput);
-                    if (userChoice > 0 && userChoice < 4) {
+                    if (userChoice > 0 && userChoice < 6) {
                         //if 1 send boots
                         // if 2 send.... osv
                         //TODO - kald metode til at håndtere søgning efter Wearable
+                        System.out.println("Søger efter Wearable X");
                     } else {
                         System.out.println("Please only choose numbers 1 through 3");
                     }
@@ -95,12 +123,13 @@ public class Main {
                         "3: Iron\n" +
                         "4: Leather\n" +
                         "5: Steel\n" +
-                        "6: Stone{\n" +
+                        "6: Stone\n" +
                         "7: Wood");
                 userInput = input.nextLine();
                 userChoice = Integer.parseInt(userInput);
                 if (userChoice > 0 && userChoice < 8) {
                     //TODO - kald metode til at håndtere søgning efter materiale
+                    System.out.println("Søger efter materiale");
                 } else {
                     System.out.println("Please only choose numbers 1 through 7");
                 }
@@ -114,6 +143,7 @@ public class Main {
                 userChoice = Integer.parseInt(userInput);
                 if (userChoice > 0 && userChoice < 5) {
                     //TODO - kald metode til at håndtere søgning efter rarity
+                    System.out.println("Søger efter rarity");
                 } else {
                     System.out.println("Please only choose numbers 1 through 7");
                 }
@@ -125,41 +155,9 @@ public class Main {
             System.out.println("Please only type a whole number");
             //"You have not inputted a valid number"
         }
+    }
 
-        /*if (userChoice == 1){
-            System.out.println("Which parameter will you use for your search?\n" +
-                    "1: Weapon\n" +
-                    "2: Wearable\n" +
-                    "3: Consumable");
-        }*/
-
-        /*
-        1: Type
-        2: Materiale
-        3: Rarity
-
-        ---1---
-        1: Våben
-        2: Wearable
-        3: Consumable
-
-        ---1.1----
-        1: Sværd
-        2: Skjold
-        3: Bue
-        4: Slangebøsse
-
-        ---2---
-        1: Wood
-        2: Iron
-        osv.
-         */
-
-        /*---3---
-        1: Common
-        2: Uncommon
-        osv.
-*/
+    public static void removeItem(){
 
     }
 }

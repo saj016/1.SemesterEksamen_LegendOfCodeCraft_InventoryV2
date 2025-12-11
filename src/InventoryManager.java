@@ -28,10 +28,14 @@ public class InventoryManager {
     }
 
     /*
+    Idé: removeItemFromSlot(int slot) [husk at index er slot -1]
+    og hav printSlotOverview delen i main menuen
+
     removeItem()
     - print hele inventory (printSlotOverview)
     - prompt for slot, de vil fjerne fra
     - fjern 1 fra slot
+    HUSK: fjern vægt fra inventory af det fjernede item
      */
 
     /*
@@ -45,14 +49,13 @@ public class InventoryManager {
 
     - Itemtype, material (wearable, weapon, consumable), rarity
 
-    TODO - spørg om hvad der menes med at "søge".
-     Skal man finde alle af det, man søger efter, eller bare bekræfte, at man har X
+    TODO - find alle af det, man søger efter
 
      */
 
     /*
     boolean dataSort(Items[])
     - bubblesort
-    return boolean if sort successfull
+    return boolean if sort successful
      */
 }

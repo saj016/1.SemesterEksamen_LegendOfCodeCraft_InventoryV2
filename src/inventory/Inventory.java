@@ -1,6 +1,7 @@
 package inventory;
 
 
+import exceptions.InventoryWeightLimitReachedException;
 import items.Consumable;
 import items.Item;
 
@@ -44,6 +45,13 @@ public class Inventory {
         this.currentWeight += item.getWeight();
     }
 
+    public boolean checkIfItemWillExceedWeightLimit(Item item) {
+        if (item.getWeight() + currentWeight < maxWeight) {
+            return true;
+        } else {
+            throw new InventoryWeightLimitReachedException("Adding item " + item + " will exceed inventory weight limit.");
+        }
+    }
 
     //return index for available slot, else return -1
     public int slotWhereItemCanAddToStack(Item item) {
