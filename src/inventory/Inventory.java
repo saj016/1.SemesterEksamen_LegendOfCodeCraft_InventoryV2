@@ -1,7 +1,9 @@
 package inventory;
 
 
+import exceptions.InventorySlotAlreadyEmptyException;
 import exceptions.InventoryWeightLimitReachedException;
+import exceptions.ExceedsAvailableSlotsException;
 import items.Consumable;
 import items.Item;
 
@@ -22,9 +24,9 @@ public class Inventory {
         }
     }
 //TODO slet??
-    /*public InventorySlot[] getItems() {
+    public InventorySlot[] getItems() {
         return items;
-    }*/
+    }
 
 
 
@@ -46,11 +48,20 @@ public class Inventory {
     }
 
     public boolean checkIfItemWillExceedWeightLimit(Item item) {
-        if (item.getWeight() + currentWeight < maxWeight) {
+        if (item.getWeight() + currentWeight <= maxWeight) {
             return true;
         } else {
             throw new InventoryWeightLimitReachedException("Adding item " + item + " will exceed inventory weight limit.");
         }
+    }
+
+    public void removeItemFromSlot(int index) throws InventorySlotAlreadyEmptyException {
+        if (index > unlockedSlots) {
+            throw new ExceedsAvailableSlotsException("Attempting to remove an item from a locked slot");
+        }
+        this.items[index].consume();
+
+        //slot not unlocked exceptiomn
     }
 
     //return index for available slot, else return -1

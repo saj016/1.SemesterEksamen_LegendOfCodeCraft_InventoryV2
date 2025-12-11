@@ -2,6 +2,8 @@ import enums.ConsumableMaterial;
 import enums.Rarity;
 import enums.WeaponMaterial;
 import enums.WearableMaterial;
+import exceptions.InventoryWeightLimitReachedException;
+import exceptions.NoEmptySlotsAvailableException;
 import inventory.Inventory;
 import items.*;
 
@@ -9,17 +11,33 @@ import java.util.Scanner;
 
 public class Main {
     static Scanner input = new Scanner(System.in);
+    static InventoryManager inventoryManager = new InventoryManager();
+    //InventoryManager creates an inventory and manages only this one inventory
+
+    static ItemFactory itemFactory = new ItemFactory();
+
     public static void main(String[] args) {
 
-        InventoryManager inventoryManager = new InventoryManager();
-        //InventoryManager creates an inventory and manages only this one inventory
 
-        ItemFactory itemFactory = new ItemFactory();
+
+        //tilføj 3 wood arrows
+        for (int i = 0; i < 4; i++) {
+            inventoryManager.addItem(itemFactory.createWoodArrow());
+        }
 
         //TODO - skal der være en metode til at lave en tilfældig inventory, man kan starte med?
         //loop to create an amount of random items and add to inventory
-        for (int i = 0; i < 22; i++) {
-            inventoryManager.addItem(ItemFactory.createRandomItem());
+        for (int i = 0; i < ; 16i++) {
+            try {
+                inventoryManager.addItem(itemFactory.createRandomItem());
+                //TODO - skal det være
+                // "Qualify static 'createRandomItem()' call with reference to class 'ItemFactory'"
+                // eller oprettes som et itemFactory objekt og bruges (hvis sidste anbefaler IntelliJ ovenstående)
+            } catch (InventoryWeightLimitReachedException e) {
+                System.out.println("Cannot add item as inventory weight limit will be exceeded.");
+            } catch (NoEmptySlotsAvailableException e) {
+                System.out.println("Cannot add item as there are no empty slots available.");
+            }
         }
 
         System.out.println(inventoryManager.printSlotOverview());
@@ -45,7 +63,37 @@ public class Main {
             3: Restore data
          */
         //Search for items menu
-        itemSearchMenu();
+
+
+
+        //itemSearchMenu();
+        System.out.println("-----Amalie test----");
+        inventoryManager.searchForItem("Arrow");
+        inventoryManager.searchForItem("Common");
+        inventoryManager.searchForItem("Gloves");
+        inventoryManager.searchForItem("Iron");
+    }
+
+    public static void addRandomItemToInventory() {
+        try {
+            inventoryManager.addItem(ItemFactory.createRandomItem());
+        } catch (InventoryWeightLimitReachedException e){
+            System.out.println("Cannot add item as inventory weight limit will be exceeded.");
+        } catch (NoEmptySlotsAvailableException e) {
+            System.out.println("Cannot add item as there are no empty slots available.");
+        }
+    }
+
+    public static void removeItemFromInventory() {
+        inventoryManager.printSlotOverview();
+        System.out.print("\nFrom which slot number do you wish to remove an item: ");
+        String userInput = input.nextLine();
+        try {
+            int userInputInt = Integer.parseInt(userInput);
+            //TODO - InventoryManager.removeItemFromInventory(userInputInt)
+        } catch (NumberFormatException e) {
+            System.out.println("A valid number was not entered");
+        }
     }
 
     public static void itemSearchMenu(){

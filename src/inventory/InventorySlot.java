@@ -1,5 +1,6 @@
 package inventory;
 
+import exceptions.InventorySlotAlreadyEmptyException;
 import interfaces.ConsumableWithMaterial;
 import items.Consumable;
 import items.Item;
@@ -99,7 +100,7 @@ public class InventorySlot {
 
     public void clearSlot() {
         if (isEmpty()) {
-            //TODO - exception
+            throw new InventorySlotAlreadyEmptyException("Trying to remove item from an empty slot");
         } else {
             this.quantity = 0;
             this.item = null;

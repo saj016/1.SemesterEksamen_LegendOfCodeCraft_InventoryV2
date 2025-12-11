@@ -6,6 +6,10 @@ import items.*;
 
 public class ItemFactory {
 
+    //TODO - SLET!! KUN TIL TEST
+    public static Item createWoodArrow() {
+        return new Arrow(ConsumableMaterial.WOOD);
+    }
 
     public static Item createRandomItem(){
         String type = createRandomItemType();
