@@ -5,43 +5,54 @@ import items.Item;
 import items.Sword;
 
 public class InventoryManager {
-
+    private Inventory inventory;
 
     public InventoryManager(){
-
+        this.inventory = new Inventory();
     }
 
-    //TODO - LAV PÆNERE!!!!!
-    public String printAll(Inventory inventory) {
-        return inventory.printAll();
+    public String printSlotOverview() {
+        return this.inventory.printSlotOverview();
     }
 
-    public void addItem(Inventory inventory, Item item) {
-        //Item item = createSword(); //SKAL SLETTES - TIL TEST TODO
-        int stackIndex = inventory.slotWhereItemCanAddToStack(item);
+    public void addItem(Item item) {
+        int stackIndex = this.inventory.slotWhereItemCanAddToStack(item);
 
         if (stackIndex != -1) {
-            inventory.addItemToStack(item, stackIndex);
-        } else if (inventory.hasAvailableSlot() != -1) {
-            int index = inventory.hasAvailableSlot();
-            inventory.addItemToEmptySlot(item, index);
+            this.inventory.addItemToStack(item, stackIndex);
+        } else if (this.inventory.hasAvailableSlot() != -1) {
+            int index = this.inventory.hasAvailableSlot();
+            this.inventory.addItemToEmptySlot(item, index);
         }
         // TODO - exception "din inventory er fuld" (eller lignende)
     }
 
-    //TODO TIL TEST! SLEEEEEEET
-    /*private Item createSword() {
-        Rarity rarity = Rarity.LEGENDARY;
-        WeaponMaterial material = WeaponMaterial.STEEL;
-        Item testSword = new Sword(rarity, material);
+    /*
+    removeItem()
+    - print hele inventory (printSlotOverview)
+    - prompt for slot, de vil fjerne fra
+    - fjern 1 fra slot
+     */
 
-        return testSword;
-    }*/
+    /*
+    seachForItem(int input)
 
-    /*public Inventory createInventory(){
-        return new Inventory();
-    }
-    //Hvordan får man lavet en inventory med et navn, man kan henvise til senere?
-    */
+    case 1  seachForWearbale()
+    case 2 seachForConsumable()
+    -
 
+    - return: liste af det, der er fundet
+
+    - Itemtype, material (wearable, weapon, consumable), rarity
+
+    TODO - spørg om hvad der menes med at "søge".
+     Skal man finde alle af det, man søger efter, eller bare bekræfte, at man har X
+
+     */
+
+    /*
+    boolean dataSort(Items[])
+    - bubblesort
+    return boolean if sort successfull
+     */
 }

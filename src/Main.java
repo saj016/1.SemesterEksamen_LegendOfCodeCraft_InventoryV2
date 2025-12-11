@@ -5,171 +5,161 @@ import enums.WearableMaterial;
 import inventory.Inventory;
 import items.*;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
 
         InventoryManager inventoryManager = new InventoryManager();
+        //InventoryManager creates an inventory and manages only this one inventory
 
-        //TODO - lav metode i inventoryManager til at oprette inventory med navn, der kan bruges
-        Inventory inventory = new Inventory();
+        ItemFactory itemFactory = new ItemFactory();
 
-        //inventoryManager.addItem(inventory); //tilføj sværd
-
-        //lav 10 tilfældige items
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, new Arrow(ConsumableMaterial.WOOD));
-        inventoryManager.addItem(inventory, new Arrow(ConsumableMaterial.WOOD));
-        inventoryManager.addItem(inventory, new Arrow(ConsumableMaterial.STEEL));
-
-        //lav 10 items
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-        inventoryManager.addItem(inventory, createItem(createRandomItemType()));
-
-
-        System.out.println(inventoryManager.printAll(inventory));
-    }
-
-
-
-    public static Item createItem(String type){
-        switch (type.toLowerCase()){
-            case "arrow": return new Arrow(createRandomConsumableMaterial());
-            case "boots": return new Boots(createRandomRarity(),createRandomWearableMaterial());
-            case "bow": return new Bow(createRandomRarity(), createRandomWeaponMaterial());
-            case "chestplate" : return new ChestPlate(createRandomRarity(), createRandomWearableMaterial());
-            case "gloves" : return new Gloves(createRandomRarity(), createRandomWearableMaterial());
-            case "healthpotion" : return new HealthPotion();
-            case "helmet" : return new Helmet(createRandomRarity(), createRandomWearableMaterial());
-            case "leggings" : return new Leggings(createRandomRarity(), createRandomWearableMaterial());
-            case "pellet" : return new Pellet(createRandomConsumableMaterial());
-            case "shield" : return new Shield(createRandomRarity(), createRandomWeaponMaterial());
-            case "slingshot" : return new Slingshot(createRandomRarity(), createRandomWeaponMaterial());
-            case "sword" : return new Sword(createRandomRarity(), createRandomWeaponMaterial());
-            default: return null;
-        }
-    }
-
-    public static String createRandomItemType() {
-        String itemType;
-
-        //create random number
-        int min = 1;
-        int max = 12;
-        int randomNumber = (int) (Math.random() * (max - min + 1)) + min;
-
-        switch (randomNumber) {
-            case 1: itemType = "Arrow"; break;
-            case 2: itemType = "Boots"; break;
-            case 3: itemType = "Bow"; break;
-            case 4: itemType = "ChestPlate"; break;
-            case 5: itemType = "Gloves"; break;
-            case 6: itemType = "HealthPotion"; break;
-            case 7: itemType = "Helmet"; break;
-            case 8: itemType = "Leggings"; break;
-            case 9: itemType = "Pellet"; break;
-            case 10: itemType = "Shield"; break;
-            case 11: itemType = "Slingshot"; break;
-            case 12: itemType = "Sword"; break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + randomNumber);
-                //IntelliJ foreslog ovenstående
-        }
-        return itemType;
-    }
-
-    public static WeaponMaterial createRandomWeaponMaterial() {
-        WeaponMaterial material;
-
-        //create random number
-        int min = 1;
-        int max = 4;
-        int randomNumber = (int) (Math.random() * (max - min + 1)) + min;
-
-        switch (randomNumber) {
-            case 1: material = WeaponMaterial.WOOD; break;
-            case 2: material = WeaponMaterial.STONE; break;
-            case 3: material = WeaponMaterial.IRON; break;
-            case 4: material = WeaponMaterial.STEEL; break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + randomNumber);
-                //IntelliJ foreslog ovenstående
-        }
-        return material;
-    }
-
-    public static WearableMaterial createRandomWearableMaterial() {
-        WearableMaterial material;
-
-        //create random number
-        int min = 1;
-        int max = 4;
-        int randomNumber = (int) (Math.random() * (max - min + 1)) + min;
-
-        switch (randomNumber) {
-            case 1: material = WearableMaterial.LEATHER; break;
-            case 2: material = WearableMaterial.IRON; break;
-            case 3: material = WearableMaterial.STEEL; break;
-            case 4: material = WearableMaterial.CHAINMAIL; break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + randomNumber);
-                //IntelliJ foreslog ovenstående
-        }
-        return material;
-    }
-
-    public static ConsumableMaterial createRandomConsumableMaterial() {
-        ConsumableMaterial material;
-
-        //create random number
-        int min = 1;
-        int max = 4;
-        int randomNumber = (int) (Math.random() * (max - min + 1)) + min;
-
-        switch (randomNumber) {
-            case 1: material = ConsumableMaterial.WOOD; break;
-            case 2: material = ConsumableMaterial.STONE; break;
-            case 3: material = ConsumableMaterial.STONE; break;
-            case 4: material = ConsumableMaterial.STEEL; break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + randomNumber);
-                //IntelliJ foreslog ovenstående
-        }
-        return material;
-    }
-
-    public static Rarity createRandomRarity() {
-        Rarity rarity;
-
-        //create random number
-        int min = 1;
-        int max = 100;
-        int randomNumber = (int) (Math.random() * (max - min + 1)) + min;
-
-        if(randomNumber < 51) {
-            rarity = Rarity.COMMON;
-        } else if (randomNumber < 81) {
-            rarity = Rarity.UNCOMMON;
-        } else if (randomNumber < 96) {
-            rarity = Rarity.RARE;
-        } else {
-            rarity = Rarity.LEGENDARY;
+        //TODO - skal der være en metode til at lave en tilfældig inventory, man kan starte med?
+        //loop to create an amount of random items and add to inventory
+        for (int i = 0; i < 22; i++) {
+            inventoryManager.addItem(ItemFactory.createRandomItem());
         }
 
-        return rarity;
+        System.out.println(inventoryManager.printSlotOverview());
+
+        //Search for items using parameters
+        System.out.println("Which parameter will you use for your search?\n" +
+                "1: Type\n" +
+                "2: Material\n" +
+                "3: Rarity");
+        String userInput = input.nextLine();
+        try {
+            int userChoice = Integer.parseInt(userInput);
+
+            if (userChoice == 1){ //Searching for Type
+                System.out.println("Which parameter will you use for your search?\n" +
+                        "1: Consumable\n" +
+                        "2: Weapon\n" +
+                        "3: Wearable");
+                userInput = input.nextLine();
+                userChoice = Integer.parseInt(userInput);
+                if (userChoice == 1){ //Searching for Consumables
+                    System.out.println("Which type will you search for?\n " +
+                            "1: Health Potion\n" +
+                            "2: Arrow\n" +
+                            "3: Pellet");
+                    userInput = input.nextLine();
+                    userChoice = Integer.parseInt(userInput);
+                    if (userChoice > 0 && userChoice < 4) {
+                        //if 1 send health
+                        // if 2 send.... osv
+                        //TODO - kald metode til at håndtere søgning efter consumable
+                    } else {
+                        System.out.println("Please only choose numbers 1 through 3");
+                    }
+                } else if (userChoice == 2){ //Searching for Weapons
+                    System.out.println("Which type will you search for?\n" +
+                            "1: Bow\n" +
+                            "2: Sword\n" +
+                            "3: Slingshot\n" +
+                            "4: Shield");
+                    userInput = input.nextLine();
+                    userChoice = Integer.parseInt(userInput);
+                    if (userChoice > 0 && userChoice < 4) {
+                        //if 1 send Bow
+                        // if 2 send.... osv
+                        //TODO - kald metode til at håndtere søgning efter Weapon
+                    } else {
+                        System.out.println("Please only choose numbers 1 through 3");
+                    }
+                } else if (userChoice == 3){ //Searching for Wearables
+                    System.out.println("Which type will you search for?\n" +
+                            "1: Boots\n" +
+                            "2: ChestPlate\n" +
+                            "3: Gloves\n" +
+                            "4: Helmet\n" +
+                            "5: Leggings");
+                    userInput = input.nextLine();
+                    userChoice = Integer.parseInt(userInput);
+                    if (userChoice > 0 && userChoice < 4) {
+                        //if 1 send boots
+                        // if 2 send.... osv
+                        //TODO - kald metode til at håndtere søgning efter Wearable
+                    } else {
+                        System.out.println("Please only choose numbers 1 through 3");
+                    }
+                } else {
+                    System.out.println("Please only choose numbers 1 through 3");
+                }
+            } else if (userChoice == 2){ //Searching for Material
+                System.out.println("Which parameter will you use for your search?\n" +
+                        "1: ChainMail\n" +
+                        "2: Flint\n" +
+                        "3: Iron\n" +
+                        "4: Leather\n" +
+                        "5: Steel\n" +
+                        "6: Stone{\n" +
+                        "7: Wood");
+                userInput = input.nextLine();
+                userChoice = Integer.parseInt(userInput);
+                if (userChoice > 0 && userChoice < 8) {
+                    //TODO - kald metode til at håndtere søgning efter materiale
+                } else {
+                    System.out.println("Please only choose numbers 1 through 7");
+                }
+            } else if (userChoice == 3) { //Searching for Rarity
+                System.out.println("Which parameter will you use for your search?\n" +
+                        "1: Common\n" +
+                        "2: Uncommon\n" +
+                        "3: Rare\n" +
+                        "4: Legendary");
+                userInput = input.nextLine();
+                userChoice = Integer.parseInt(userInput);
+                if (userChoice > 0 && userChoice < 5) {
+                    //TODO - kald metode til at håndtere søgning efter rarity
+                } else {
+                    System.out.println("Please only choose numbers 1 through 7");
+                }
+            } else {
+                System.out.println("Please only choose options 1, 2 or 3");
+            }
+
+        } catch (NumberFormatException e){
+            System.out.println("Please only type a whole number");
+            //"You have not inputted a valid number"
+        }
+
+        /*if (userChoice == 1){
+            System.out.println("Which parameter will you use for your search?\n" +
+                    "1: Weapon\n" +
+                    "2: Wearable\n" +
+                    "3: Consumable");
+        }*/
+
+        /*
+        1: Type
+        2: Materiale
+        3: Rarity
+
+        ---1---
+        1: Våben
+        2: Wearable
+        3: Consumable
+
+        ---1.1----
+        1: Sværd
+        2: Skjold
+        3: Bue
+        4: Slangebøsse
+
+        ---2---
+        1: Wood
+        2: Iron
+        osv.
+         */
+
+        /*---3---
+        1: Common
+        2: Uncommon
+        osv.
+*/
+
     }
 }

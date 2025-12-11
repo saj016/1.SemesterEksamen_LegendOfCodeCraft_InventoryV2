@@ -32,11 +32,14 @@ public class Inventory {
         addWeightToInventory(item);
     }
 
+    //TODO Tjek om vægt kan lægges i inventory - så læg i inventory og tillæg vægt bagefter
+
     public void addItemToStack(Item item, int index) {
         items[index].addToStack(item);
         addWeightToInventory(item);
     }
 
+    //TODO - kan den være private?
     public void addWeightToInventory(Item item){
         this.currentWeight += item.getWeight();
     }
@@ -67,7 +70,7 @@ public class Inventory {
         return -1;
     }
 
-    public String printAll(){
+    public String printSlotOverview(){
         String output = "";
         for (int i = 0; i <items.length; i++){
             if (items[i].getItem() != null) {
