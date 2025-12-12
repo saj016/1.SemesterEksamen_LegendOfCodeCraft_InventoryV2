@@ -7,6 +7,7 @@ import inventory.Inventory;
 import inventory.InventorySlot;
 import items.Consumable;
 import items.Item;
+import items.SerializationClass;
 import items.Sword;
 
 import java.io.IOException;
@@ -19,10 +20,24 @@ public class InventoryManager {
         this.inventory = new Inventory();
     }
 
+    //TODO - deserialize
+    public void deserializeInventory(String fileName) throws IOException, ClassNotFoundException {
+        SerializationClass serializationClass = new SerializationClass();
+        Inventory tempInventory = serializationClass.deserializeInventory(fileName);
+        if (tempInventory != null) {
+            this.inventory = tempInventory;
+        }
+    }
     //TODO - serialize
+    public void serializeInventory(String fileName) throws IOException {
+        SerializationClass serializationClass = new SerializationClass();
+        serializationClass.serializeInventory(fileName, this.inventory);
+    }
+
+    /*
     public String serialize() throws IOException {
         return inventory.serialize();
-    }
+    }*/
 
     public String printSlotOverview() {
         return this.inventory.printSlotOverview();
@@ -46,16 +61,6 @@ public class InventoryManager {
         int index = slot - 1;
         inventory.removeItemFromSlot(index);
     }
-
-    //TODO searchItem
-    /*
-    searchForItem(int input)
-    - return: liste af det, der er fundet
-
-    - Itemtype, material (wearable, weapon, consumable), rarity
-
-    TODO - find alle af det, man søger efter
-     */
 
     public String searchForItem(String searchParameter) {
         InventorySlot[] items = this.inventory.getItems();
@@ -123,28 +128,99 @@ public class InventoryManager {
         }
     }
 
+    /* TODO
+    Sortering efter item typer:
+    Nedenstående antager rækkefølge
+    1. Weapon
+    2. Wearable
+    3. Consumable
+    Herunder sorteres de alfabetisk efter subklasse-type og derefter alfabetisk efter navn
+
+
+    start med en if (i1 == null && i2 != null) swap
+
+    antager at rækkefølge er: våben, wearable, consumable:
+    hvis (i1 instof våben && (v2 instof wearable || i2 instof consumable)) {
+        no swap
+    }
+    hvis (i1 instof wearable && v2 instof consumable) {
+        no swap
+    }
+    hvis (i1 instof consumable && (v2 instof våben || i2 instof wearbale)) {
+        swap
+    }
+    hvis (i1 instof wearable && v2 instof våben) {
+        swap
+    }
+
+    hvis (i1 instof våben && i2 instof våben) { //Skal gentages for wearables
+        if (i1.getClasName.compareTo(i2.getClassName) > 0) {
+            swap
+        } else if (i1.getClassName.compareTo(i2.getClassName) == 0) { //kan man bare bruge getclassname==getclassname?
+            if (i1.getName.compareTo(i2.getName) > 0) {
+                swap
+            } else {
+                no swap
+            }
+        } else {
+            no swap
+        }
+    }
+
+    hvis (i1 instof consumable && i2 instof consumable) {
+        if (i1.getClasName.compareTo(i2.getClassName) > 0) {
+            swap
+        } else if (i1.getClassName.compareTo(i2.getClassName) == 0) { //kan man bare bruge getclassname==getclassname?
+            if (i1.getName.compareTo(i2.getName) > 0) { //vil teknisk set ikke blive brugt til HealthPotion, men nok længere kode, hvis der skal kigges på det først
+                swap
+            } else {
+                no swap
+            }
+        } else {
+            no swap
+        }
+    }
+     */
+
+
+    /* (TODO)
+    sortering efter rarity
+
+    start med en if (i1 == null && i2 != null) swap
+
+    if (i1 instof consumable && i2 instof consumable) {
+        if (i1.getName.compareTo(i2.getName) > 0) {
+            swap
+        } else {
+            no swap
+        }
+    }
+
+    if (i1 instof consumable && i2 !instof consumable) {
+        no swap
+    }
+
+    if (i1 !instof consumable && i2 instof consumable) {
+        swap
+    }
+
+
+     */
+
 
     public void addSlots(int amount) throws ExceedingMaxSlotCapacityException {
         this.inventory.addSlots(amount);
     }
 
-    /*
-        Adding slots
-        addSlots(int amount)
-        oprette ny array med "amount" ekstra index
-        kopiere nuværende array ind i nyt array
-        lav nyt array til det nye nuværende array
 
-
-                String[] temp = new String[original.length + 1];
-
-           for (int i = 0; i < original.length; i++){
-              temp[i] = original[i];
-           }
-           original = temp;
-        }
-
-     */
+    public void resetInventoryData() {
+        Inventory tempInventory = new Inventory();
+        this.inventory = tempInventory;
+    }
+    //TODO - "resetInventoryData()" eller "factoryResetInventory"?
+    public void factoryResetInventory() {
+        inventory.factoryResetInventory();
+    }
 
 
 }

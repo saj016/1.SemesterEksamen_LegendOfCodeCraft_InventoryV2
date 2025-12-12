@@ -70,7 +70,8 @@ public class Main {
                     "6: Search for item\n" +
                     "7: Add inventory slots\n"+
                     "8: Advanced features\n" +
-                    "9: Close menu");
+                    "9: Close menu" +
+                    "\n-------\n12: Serialize\n13: Deserialise\n14: Reset Inventory"); //TODO - til test
             String userInput = input.nextLine();
             try {
                 menuChoice = Integer.parseInt(userInput);
@@ -84,11 +85,9 @@ public class Main {
                     case 7: addSlotsToInventory(); break;
                     case 8: advancedMenu(); break;
                     case 9: keepMenuRunning = false; break;
-                    case 10: try {
-                        inventoryManager.serialize();
-                    } catch (IOException e) {
-                        System.out.println("Det virker ikke - IOException");
-                    } break; //TODO - til test så ikke med i menuen
+                    case 12: serializeInventory(); break;
+                    case 13: deserializeInventory(); break;
+                    case 14: resetInventoryData2(); break;
                     default:
                         System.out.println("An invalid option was chosen"); break;
                 }
@@ -99,6 +98,31 @@ public class Main {
     }
 
 
+    public static void serializeInventory() {
+        System.out.println("Indtast tekstfil-navn");
+        String fileName = input.nextLine();
+        try {
+            inventoryManager.serializeInventory(fileName);
+        } catch (IOException e) {
+            //throw new RuntimeException(e);
+            System.out.println("Error trying to serialize inventory");
+        }
+        //inventoryManager.serializeInventory(fileName);
+    }
+
+    public static void deserializeInventory() {
+        System.out.println("Indtast tekstfil-navn");
+        String fileName = input.nextLine();
+        try {
+            inventoryManager.deserializeInventory(fileName);
+        } catch (IOException e) {
+            //throw new RuntimeException(e);
+            System.out.println("Error trying to deserialize inventory");
+        } catch (ClassNotFoundException e) {
+            //throw new RuntimeException(e);
+            System.out.println("Error finding class when trying to deserialize inventory");
+        }
+    }
 
     public static void addRandomItemToInventory() {
         try {
@@ -308,12 +332,36 @@ public class Main {
     }
 
     public static void advancedMenu(){
+        System.out.println("1: Export inventory\n" +
+                "2: Reset inventory\n" +
+                "3: Restore inventory");
+        //TODO - skal der være en "eksporter fin data til at vise venner" og en "eksporter data til senere genoprettelse"?
        /* 8: Advanced features
         herunder:
         1: Export data TODO
         2: Reset data / delete data (husk en "er du sikker på..." før sletning) TODO
         3: Restore data TODO{
         */
+    }
+
+    public static void resetInventoryData1() {
+        System.out.println("!!WARNING!! resetting inventory cannot be undone. Do you still want to proceed (Y/N)?");
+        String userInput = input.nextLine().trim();
+        if (userInput.equalsIgnoreCase("Y")) {
+            inventoryManager.resetInventoryData();
+            System.out.println("Inventory has been reset");
+        }
+    }
+
+    //TODO - vælg den ene eller anden reset alt efter valg inde i InventoryManager (og Inventory)
+
+    public static void resetInventoryData2() {
+        System.out.println("!!WARNING!! Resetting inventory cannot be undone. Do you still want to proceed (Y/N)?");
+        String userInput = input.nextLine().trim();
+        if (userInput.equalsIgnoreCase("Y")) {
+            inventoryManager.factoryResetInventory();
+            System.out.println("Inventory has been reset");
+        }
     }
 
 }

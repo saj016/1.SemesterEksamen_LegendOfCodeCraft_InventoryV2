@@ -1,11 +1,85 @@
 package items;
 
+import inventory.Inventory;
 import inventory.InventorySlot;
 
 import java.io.*;
 
 public class SerializationClass {
 
+
+    public void serializeInventory(String fileName, Inventory inventory) throws IOException{
+        FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".txt");
+        ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+        out.writeObject(inventory);
+        out.close();
+        fileOutputStream.close();
+        System.out.println("Serialization complete");
+    }
+
+    /*
+    public void serializeInventory(String fileName, Inventory inventory) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".txt");
+            ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+            out.writeObject(inventory);
+            out.close();
+            fileOutputStream.close();
+            System.out.println("Serialization complete");
+        } catch (IOException e) {
+            System.out.println("Error serializing");
+        }
+    }
+     */
+
+    public Inventory deserializeInventory(String fileName) throws IOException, ClassNotFoundException {
+        Inventory tempInventory = null;
+
+        FileInputStream fileInputStream = new FileInputStream(fileName + ".txt");
+        ObjectInputStream in = new ObjectInputStream(fileInputStream);
+        tempInventory = (Inventory) in.readObject();
+        in.close();
+        fileInputStream.close();
+        return tempInventory;
+    }
+
+    /*
+    public Inventory deserializeInventory(String fileName) {
+        Inventory tempInventory = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream(fileName + ".txt");
+            ObjectInputStream in = new ObjectInputStream(fileInputStream);
+            tempInventory = (Inventory) in.readObject();
+            in.close();
+            fileInputStream.close();
+            return tempInventory;
+        } catch (IOException e) {
+            System.out.println("IOException error trying to deserialize");
+            return null;
+        } catch (ClassNotFoundException e) {
+            //throw new RuntimeException(e);
+            System.out.println("IOException error trying to deserialize");
+            return null;
+        }
+    }
+     */
+
+    /*
+    public void serializeInventorySlots(String filename, InventorySlot[] inventorySlots) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(filename + ".txt");
+            ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+            out.writeObject(inventorySlots);
+            out.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            System.out.println("Error serializing");
+        }
+        System.out.println("Serialization complete");
+    }*/
+
+
+    /*
     //serialize
     public static void serializeObjectArray(InventorySlot[] slots) throws IOException {
         if (slots == null) {
@@ -21,18 +95,18 @@ public class SerializationClass {
         } catch (IOException e) {
             System.out.println("Exception reached!!!");
         }
-    }
+    }*/
 
+    /*
     //deserialize
     public static void deserializeObjectArray(String fileName) throws IOException, ClassNotFoundException {
-        if ((fileName + ".txt") == null) {
-            throw new IllegalArgumentException("Byte array cannot be null");
-        }
+
         try (FileInputStream fileInputStream = new FileInputStream(fileName + ".txt");
              ObjectInputStream in = new ObjectInputStream(fileInputStream)) {
             System.out.println("Deserialization completed");
         }
     }
+       */
 
 
 }
